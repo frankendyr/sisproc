@@ -67,6 +67,10 @@ const TableBody = () => {
 
 class Tabela extends Component {
     render(){
+
+        const { processos } = this.props;
+        console.log(processos);
+
         return(
             <table>
                 <TableHead />
