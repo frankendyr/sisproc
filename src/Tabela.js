@@ -19,47 +19,27 @@ const TableHead = () => {
     );
 }
 
-const TableBody = () => {
-    return (
+const TableBody = props => {
+    const linhas = props.processos.map((processo, index) => {
+        return (
+            <tr key = { index }>
+                <td>{processo.orgao}</td>
+                <td>{processo.viproc}</td>
+                <td>{processo.objeto}</td>
+                <td>{processo.valor}</td>
+                <td>{processo.fonte_recursos}</td>
+                <td>{processo.data_entrada}</td>
+                <td>{processo.status}</td>
+                <td>{processo.dias}</td>
+                <td>{processo.responsavel}</td>
+                <td><button onClick = { () => { props.removeProcesso(index) } } >Remover</button></td>
+            </tr>
+        );
+    });
+
+    return(
         <tbody>
-            <tr>
-                <td>SEPLAG</td>
-                <td>01020304/2020</td>
-                <td>Aquisição de 100 microcomputadores</td>
-                <td>400.000,00</td>
-                <td>Tesouro Estadual</td>
-                <td>16/03/2020</td>
-                <td>Em análise</td>
-                <td>13</td>
-                <td>Kennedy Ribeiro</td>
-                <td><button>Atualizar</button></td>
-            </tr>
-
-            <tr>
-                <td>SEFAZ</td>
-                <td>02010304/2020</td>
-                <td>Aquisição de solução de backup</td>
-                <td>1.345.543,97</td>
-                <td>PROFISCO-BID</td>
-                <td>12/02/2020</td>
-                <td>Etice</td>
-                <td>7</td>
-                <td>Camila Linhares</td>
-                <td><button>Atualizar</button></td>
-            </tr>
-
-            <tr>
-                <td>CAGECE</td>
-                <td>07060504/2020</td>
-                <td>Contratação de serviços de outsourcing de impressão</td>
-                <td>350.000,00</td>
-                <td>Recursos Próprios</td>
-                <td>10/04/2020</td>
-                <td>Asjur</td>
-                <td>11</td>
-                <td>Igor Rebouças</td>
-                <td><button>Atualizar</button></td>
-            </tr>
+            {linhas}
         </tbody>
     );
 }
@@ -68,13 +48,12 @@ const TableBody = () => {
 class Tabela extends Component {
     render(){
 
-        const { processos } = this.props;
-        console.log(processos);
+        const { processos, removeProcesso } = this.props;
 
         return(
             <table>
                 <TableHead />
-                <TableBody />
+                <TableBody processos = { processos }  removeProcesso = { removeProcesso } />
             </table>
         );
     }
