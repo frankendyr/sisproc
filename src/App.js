@@ -1,6 +1,7 @@
-import React, {  Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import './App.css';
 import Tabela from './Tabela';
+import Formulario from './Formulario';
 
 class App extends Component {
 
@@ -48,16 +49,23 @@ class App extends Component {
     this.setState(
       {
         processos: processos.filter((processo, posAtual) => {
-          console.log(index, posAtual);
+          //console.log(index, posAtual);
           return posAtual !== index;
         }),
       }
     );
   }
-  
+
+  escutadorDeSubmit = processo => {
+    this.setState({ processos:[...this.state.processos, processo] })
+  }
+
   render() {
     return (
-      <Tabela processos = { this.state.processos } removeProcesso = { this.removeProcesso } />
+      <Fragment>
+        <Tabela processos={this.state.processos} removeProcesso={this.removeProcesso} />
+        <Formulario escutadorDeSubmit={ this.escutadorDeSubmit } />
+      </Fragment>
     );
   }
 
